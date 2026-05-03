@@ -4,44 +4,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GTA V / FiveM Map Builder</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-    body { margin:0; font-family: system-ui, sans-serif; background: #0a0a0a; color: #ddd; overflow:hidden; }
+    body { 
+      margin:0; padding:0; font-family: system-ui, sans-serif; 
+      background: #0a0a0a; color: #ddd; overflow: hidden; 
+    }
     #toolbar {
       position: fixed; top: 10px; left: 10px; z-index: 1000;
       background: rgba(20,20,20,0.95); padding: 12px; border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6); display: flex; flex-wrap: wrap; gap: 8px;
+      align-items: center;
     }
-    button, select, input { padding: 8px 12px; margin: 4px 2px; border-radius: 6px; background: #222; color: white; border: none; }
+    button, select, input { 
+      padding: 8px 12px; border-radius: 6px; background: #222; color: white; 
+      border: none; cursor: pointer;
+    }
     button:hover { background: #444; }
+    button:disabled { background: #111; color: #666; cursor: not-allowed; }
     #map { height: 100vh; background: #111; }
     .fragment {
       position: absolute; cursor: move; image-rendering: crisp-edges;
-      box-shadow: 0 0 10px rgba(0,0,0,0.8);
-      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 12px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
     }
-    .fragment.selected { border: 2px solid #ffd700; box-shadow: 0 0 20px gold; }
+    .fragment.selected { 
+      border: 3px solid #ffd700; 
+      box-shadow: 0 0 25px gold; 
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
   <div id="toolbar">
     <input type="file" id="uploader" multiple accept="image/*">
     <button id="autoArrange">Auto Arrange by Filename</button>
+    <button id="exportImage">Export as Single PNG</button>
     <button id="clear">Clear All</button>
-    <button id="export">Export Map</button>
-    <button id="import">Import</button>
     
     <select id="tileSize">
-      <option value="1024">Tile Size: 1024px</option>
-      <option value="2048" selected>Tile Size: 2048px</option>
-      <option value="4096">Tile Size: 4096px</option>
+      <option value="1024">Tile 1024px</option>
+      <option value="2048" selected>Tile 2048px</option>
+      <option value="4096">Tile 4096px</option>
     </select>
     <label><input type="checkbox" id="snap" checked> Snap to Grid</label>
   </div>
 
   <div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
